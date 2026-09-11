@@ -1,0 +1,28 @@
+# Secrets — never commit (deploy these out-of-band, like .env)
+.env
+.env.*
+!.env.example
+src/docs-auth.json
+.4bnode/.passkey
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+.next/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+
