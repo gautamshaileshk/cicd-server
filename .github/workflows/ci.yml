@@ -1,10 +1,34 @@
 name: CI
-on: push
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
-  hello:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - run: echo "Runner is alive"
-      - run: node --version
-      - run: pwd
+      - uses: actions/checkout@v4
+
       - run: ls -la
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: node --version
+
+      - run: npm ci
+
+      - run: ls node_modules | head -20
